@@ -19,7 +19,9 @@ pipeline {
                 sh '''
 
                 chmod 777 gradlew
-                ./gradlew startstub
+                # ./gradlew startstub
+                export JENKINS_NODE_COOKIE=dontKillMe
+                nohup gradlew startstub &
 
 
                 '''
