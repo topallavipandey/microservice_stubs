@@ -1,15 +1,23 @@
 pipeline {
     agent any
 
+        parameters {
+            booleanParam(defaultValue: false, description: 'Stop the stubs', name: 'StopStub')
+            string(defaultValue: '8085', description: 'port number to run the stub server', name: 'portNumber')
+        }
+
     stages {
         stage('Build') {
             steps {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('Kill') {
             steps {
-                echo 'Testing..'
+                echo 'stop server'
+                sh '''
+                kill -9 $(ps -ef | grep "wiremock" | awk '{print $2}')
+                    '''
             }
         }
         stage('Deploy') {
