@@ -18,6 +18,7 @@ pipeline {
                 echo 'Deploying....'
                 sh '''
 
+                chmod 777 gradlew
                 ./gradlew startstub
 
 
