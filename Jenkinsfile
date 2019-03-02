@@ -14,6 +14,7 @@ pipeline {
         }
         stage('Kill') {
             steps {
+            script{
             if(params.StopStub)
             {
                 echo 'stop server'
@@ -21,10 +22,13 @@ pipeline {
                 kill -9 $(ps -ef | grep "wiremock" | awk '{print $2}')
                     '''
              }
+             }
             }
         }
         stage('Deploy') {
             steps {
+
+            script{
             if(!params.StopStub)
             {
                 echo 'Deploying....'
@@ -38,7 +42,7 @@ pipeline {
 
                 '''
              }
-
+}
             }
         }
     }
